@@ -1,0 +1,39 @@
+<%- include ('../../partials/header.ejs')%>
+<%- include ('../../partials/navbar.ejs')%>
+<br>
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+           <h2>Cadastrar um novo artigo</h2>
+        </div>
+        <div class="card-body">
+            <form method="POST" action="/articles/save">
+                <br>
+                <input class="form-control" type="text" name="title" placeholder="Novo título do artigo">
+                <br>
+                <textarea class="form-control" name="body" placeholder="Corpo do artigo" id="article"></textarea>
+                <br>
+                <label for="">Categoria</label>
+                <select class="form-control" name="category">
+                    <% categories.forEach((category) =>{ %>
+                        <option value="<%=category.id %>" ><%= category.title %></option>
+                    <% }) %>
+                </select>
+                <br>
+                <button class="btn btn-success">Enviar</button>
+            </form>
+
+        </div>
+    </div>
+</div>
+<%- include ('../../partials/footer.ejs')%>
+<script src="/tinymce/tinymce.min.js"></script>  
+<script>   // Tinymce adciona 'poderes' para meus editores de texto
+    tinymce.init({    // Aqui eu inicio ele e falou qual elemento eu quero que ele atue
+        selector: '#article',
+        // Adicionando novas funçoes para o tinymce
+        plugins: [
+            'advlist autolink link image list print preview hr searchreplace wordcount fullscreen insertdatatime media save table paste emoticons'
+        ]
+    })
+</script>

@@ -1,0 +1,46 @@
+<%- include ('../../partials/header.ejs')%>
+<%- include ('../../partials/navbar.ejs')%>
+<div class="container">
+    <br>
+    <h2>Categorias</h2>
+    <a class="btn btn-success" href="/admin/categories/new">Criar nova categoria</a>
+    <br><br>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Título</th>
+                <th>Slug</th>
+                <th>Ação</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% categories.forEach(category => { %>
+                <tr>
+                    <td><%= category.id %></td>
+                    <td><%= category.title %></td>
+                    <td><%= category.slug %></td>
+                    <td>
+                        <a href="/admin/categories/edit/<%=category.id%>" class="btn btn-warning">Editar</a>
+                        <form action="/categories/delete" method="POST" style="display: inline" onsubmit="confirmarDel(event, this)"> <!--O this recebe o elemento que esta chamando, nesse caso é o proprio form-->
+                            <input type="hidden" name="id" value="<%= category.id %>">
+                            <button style="position: relative; left: 70px;" class="btn btn-danger">Deletar</button>
+                        </form>
+                        
+                    </td>
+                </tr>
+            <%})%>
+        </tbody>
+    </table>
+
+</div>
+<%- include ('../../partials/footer.ejs')%>
+<script>
+    function confirmarDel(event, form){  // Recebe um evento, no caso o onsubmit
+        event.preventDefault() // Isso  faz com que o formulario n seja enviado
+        let decision = confirm('Você deseja deletar essa categoria ?')
+        if (decision){
+            form.submit()
+        }
+    }
+</script>

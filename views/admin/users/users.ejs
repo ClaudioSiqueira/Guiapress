@@ -1,0 +1,44 @@
+<%- include ('../../partials/header.ejs')%>
+<%- include ('../../partials/navbar.ejs')%>
+<div class="container">
+    <br>
+    <h2>Usuários</h2>
+    <br>
+    <a href="/admin/user/create" class="btn btn-success">Criar novo usuário</a>
+    <br><br>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Email</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            <%users.forEach((user) =>{ %>
+                <tr>
+                    <td><%=user.id%></td>
+                    <td><%=user.email%></td>             
+                    <td>
+                        <form style="display: inline;" action="/admin/delete" method="POST" onsubmit="confirmarDel(event, this)" >
+                            <button class="btn btn-danger">Deletar</button>
+                            <input type="hidden" name="id" value="<%=user.id%>">
+                        </form>
+                        <a href="/admin/editar/<%=user.id%>" style="position: relative; left: 70px;"class="btn btn-warning">Editar</a>
+                    </td>
+                </tr>
+            <%})%>
+        </tbody>
+    </table>
+
+</div>
+<%- include ('../../partials/footer.ejs')%>
+<script>
+    function confirmarDel(event, form){  // Recebe um evento, no caso o onsubmit
+        event.preventDefault() // Isso  faz com que o formulario n seja enviado
+        let decision = confirm('Você deseja deletar esse artigo ?')
+        if (decision){
+            form.submit()
+        }
+    }
+</script>

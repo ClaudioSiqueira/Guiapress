@@ -1,0 +1,36 @@
+<%- include ('../../partials/header.ejs')%>
+<%- include ('../../partials/navbar.ejs')%>
+<br>
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+           <h2>Atualizar conta</h2>
+        </div>
+        <div class="card-body">
+            <form method="POST" action="/admin/user/update" onsubmit="confirmPassword(event, this)">
+                <br>
+                <input class="form-control" type="email" name="email" value="<%=user.email%>" placeholder="Email">
+                <br>
+                <input class="form-control" type="password" name="password" id="password" placeholder="Senha"><br>
+                <input class="form-control" type="password" id="password2" placeholder="Confirmar senha">
+                <br>
+                <input type="hidden" name="id" value="<%= user.id%>">
+                <button class="btn btn-success btn-block">Enviar</button>
+            </form>
+
+        </div>
+    </div>
+</div>
+<script>
+    function confirmPassword(event, form){
+        event.preventDefault()
+        let password = document.getElementById('password').value
+        let password2 = document.getElementById('password2').value
+        if (password == password2){
+            form.submit()
+        }else{
+            alert('As senhas estão diferentes, por favor preencha novamente.')
+        }
+    }
+</script>
+<%- include ('../../partials/footer.ejs')%>
